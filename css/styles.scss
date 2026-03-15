@@ -8,6 +8,7 @@
     --accent: #5A2CA0;
     --accent-hover: #8A3FFC;
     --footer-space: 260px;
+    --header-offset: 200px;
 }
 
 * {
@@ -95,6 +96,10 @@ body {
     flex-wrap: wrap;
 }
 
+.nav li {
+    min-width: 0;
+}
+
 .nav a {
     text-decoration: none;
     color: var(--text-main);
@@ -114,7 +119,7 @@ body {
 /* MAIN CONTENT */
 main {
     flex: 0 0 auto;
-    margin-top: 200px;
+    margin-top: var(--header-offset);
     margin-bottom: 0;
     max-width: 1200px;
     width: 100%;
@@ -557,6 +562,10 @@ h1::after {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+    :root {
+        --header-offset: 230px;
+    }
+
     .header-content {
         padding: 15px 10px;
         gap: 10px;
@@ -567,16 +576,24 @@ h1::after {
     }
 
     .nav ul {
-        gap: 15px;
+        width: min(100%, 760px);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 14px;
+        row-gap: 10px;
+        align-items: center;
     }
 
     .nav a {
         font-size: 14px;
-    }
-
-    main {
-        margin-top: 170px;
-        margin-bottom: 0;
+        display: block;
+        text-align: center;
+        white-space: normal;
+        text-wrap: balance;
+        line-height: 1.2;
+        min-height: 34px;
+        max-width: 145px;
+        margin: 0 auto;
     }
 
     h1 {
@@ -655,6 +672,10 @@ h1::after {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --header-offset: 250px;
+    }
+
     .header {
         padding: 15px 0;
     }
@@ -664,16 +685,28 @@ h1::after {
     }
 
     .nav ul {
-        gap: 10px;
-        flex-direction: column;
+        width: min(100%, 430px);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 8px;
+        row-gap: 8px;
+        align-items: center;
     }
 
     .nav a {
         font-size: 13px;
+        display: block;
+        text-align: center;
+        white-space: normal;
+        text-wrap: balance;
+        line-height: 1.2;
+        min-height: 32px;
+        max-width: 120px;
+        margin: 0 auto;
+        padding-bottom: 3px;
     }
 
     main {
-        margin-top: 150px;
         margin-bottom: 0;
         padding: 0 10px;
     }

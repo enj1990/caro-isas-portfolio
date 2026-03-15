@@ -29,6 +29,9 @@
     <main class="main-content">
         <h1>Contacto</h1>
         <section class="contact-form-section">
+            <div class="form-feedback" id="form-feedback" role="status" aria-live="polite" hidden>
+                Mensaje enviado con exito. Gracias por tu consulta.
+            </div>
             <form class="contact-form" action="https://formsubmit.co/caro.isas.foto@gmail.com" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -56,12 +59,25 @@
                 </div>
 
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://yourdomain.com/gracias.html">
+                <input type="hidden" name="_next" value="https://caroisasfoto.com.ar/pages/contacto.html?enviado=1">
+                <input type="hidden" name="_autoresponse" value="Gracias por tu mensaje. Ya recibimos tu consulta y te responderemos a la brevedad.">
 
                 <button type="submit" class="submit-btn">Enviar</button>
             </form>
         </section>
     </main>
+
+    <div class="camera-send-overlay" id="camera-send-overlay" aria-hidden="true">
+        <div class="camera-send-card" id="camera-send-card" role="status" aria-live="polite">
+            <div class="camera-icon" aria-hidden="true">
+                <div class="camera-top"></div>
+                <div class="camera-lens"></div>
+                <div class="camera-flash"></div>
+            </div>
+            <p class="camera-send-text">Preparando envio...</p>
+            <p class="camera-send-check">Foto lista. Consulta enviada.</p>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -124,6 +140,12 @@
         const testimonials = document.querySelectorAll('.testimonial');
         const totalTestimonials = testimonials.length;
         const footer = document.querySelector('.footer');
+        const contactForm = document.querySelector('.contact-form');
+        const submitButton = contactForm ? contactForm.querySelector('.submit-btn') : null;
+        const formFeedback = document.getElementById('form-feedback');
+        const cameraOverlay = document.getElementById('camera-send-overlay');
+        const cameraCard = document.getElementById('camera-send-card');
+        let isSubmitting = false;
 
         function updateFooterSpace() {
             if (!footer) return;
@@ -142,9 +164,56 @@
             showTestimonial(currentTestimonial);
         }
 
+        function setupContactFormAnimation() {
+            if (!contactForm || !submitButton || !cameraOverlay || !cameraCard) return;
+
+            contactForm.addEventListener('submit', (event) => {
+                if (isSubmitting) {
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!contactForm.reportValidity()) return;
+
+                event.preventDefault();
+                isSubmitting = true;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+
+                cameraOverlay.classList.add('is-visible');
+                cameraCard.classList.remove('is-complete');
+                void cameraCard.offsetWidth;
+                cameraCard.classList.add('is-animating');
+
+                setTimeout(() => {
+                    cameraCard.classList.add('is-complete');
+                }, 850);
+
+                setTimeout(() => {
+                    contactForm.submit();
+                }, 1550);
+            });
+        }
+
+        function showSubmitConfirmation() {
+            if (!formFeedback) return;
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('enviado') !== '1') return;
+
+            formFeedback.hidden = false;
+            formFeedback.classList.add('is-visible');
+
+            params.delete('enviado');
+            const nextQuery = params.toString();
+            const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}${window.location.hash}`;
+            window.history.replaceState({}, '', nextUrl);
+        }
+
         // Inicializar
         showTestimonial(0);
         updateFooterSpace();
+        setupContactFormAnimation();
+        showSubmitConfirmation();
         window.addEventListener('resize', updateFooterSpace);
         setInterval(autoRotateTestimonials, 5000);
     </script>

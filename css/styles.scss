@@ -213,6 +213,7 @@ h1::after {
     height: 100%;
     object-fit: cover;
     display: block;
+    cursor: zoom-in;
     transition: transform 0.3s ease;
 }
 
@@ -560,6 +561,85 @@ h1::after {
     position: relative;
 }
 
+/* LIGHTBOX */
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 5, 8, 0.92);
+    z-index: 10000;
+    padding: 24px;
+}
+
+.lightbox-overlay.is-open {
+    display: flex;
+}
+
+.lightbox-image {
+    max-width: min(92vw, 1300px);
+    max-height: 84vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid rgba(138, 63, 252, 0.45);
+    box-shadow: 0 0 24px rgba(138, 63, 252, 0.28);
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    border: 1px solid rgba(138, 63, 252, 0.55);
+    background: rgba(16, 16, 20, 0.82);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(138, 63, 252, 0.8);
+    transform: scale(1.04);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 56px;
+    border-radius: 6px;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     :root {
@@ -789,5 +869,37 @@ h1::after {
 
     .footer-copy {
         font-size: 11px;
+    }
+
+    .lightbox-overlay {
+        padding: 14px;
+    }
+
+    .lightbox-image {
+        max-width: 94vw;
+        max-height: 78vh;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        width: 34px;
+        height: 46px;
+        font-size: 22px;
+    }
+
+    .lightbox-prev {
+        left: 10px;
+    }
+
+    .lightbox-next {
+        right: 10px;
     }
 }

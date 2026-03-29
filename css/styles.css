@@ -88,19 +88,21 @@ body {
     object-fit: contain;
 }
 
-.nav ul {
+.nav > ul {
     list-style: none;
     display: flex;
     gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .nav li {
     min-width: 0;
 }
 
-.nav a {
+.nav a,
+.nav-dropdown summary {
     text-decoration: none;
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
@@ -109,9 +111,54 @@ body {
     transition: color 0.3s ease;
     border-bottom: 2px solid transparent;
     padding-bottom: 5px;
+    display: block;
+    cursor: pointer;
+    list-style: none;
 }
 
-.nav a:hover {
+.nav-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+.nav-dropdown details {
+    position: relative;
+}
+
+.nav-submenu {
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 250px;
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(138, 63, 252, 0.42);
+    background-color: var(--bg-highlight);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 1100;
+}
+
+.nav-dropdown details[open] .nav-submenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.nav-submenu a {
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.nav a:hover,
+.nav-dropdown summary:hover,
+.nav-dropdown details[open] > summary {
     color: var(--accent-hover);
     border-bottom-color: var(--accent-hover);
 }
@@ -147,15 +194,6 @@ h1::after {
     box-shadow: 0 0 8px rgba(138, 63, 252, 0.5);
 }
 
-/* INTRO SECTION */
-.intro {
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--text-main);
-}
-
 .section-description {
     text-align: center;
     margin-bottom: 40px;
@@ -168,14 +206,46 @@ h1::after {
     margin-right: auto;
 }
 
-/* GALLERIES */
-.gallery-two-col {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-bottom: 50px;
+.home-hero-section {
+    max-width: 920px;
+    margin: 40px auto 50px;
+    padding: 44px 34px;
+    text-align: center;
+    background: linear-gradient(160deg, rgba(24, 24, 32, 0.94), rgba(18, 18, 24, 0.96));
+    border: 1px solid rgba(138, 63, 252, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 63, 252, 0.2), 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
+.home-hero-subtitle {
+    max-width: 740px;
+    margin: 0 auto 28px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-main);
+}
+
+.home-hero-cta {
+    display: inline-block;
+    min-width: 210px;
+    padding: 12px 26px;
+    background-color: var(--accent);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.home-hero-cta:hover {
+    background-color: var(--accent-hover);
+    border-color: rgba(138, 63, 252, 0.6);
+}
+
+/* GALLERIES */
 .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -830,32 +900,59 @@ body.lightbox-open {
         height: 60px;
     }
 
-    .nav ul {
+    .nav > ul {
         width: min(100%, 760px);
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 16px;
         row-gap: 10px;
         align-items: center;
     }
 
-    .nav a {
+    .nav a,
+    .nav-dropdown summary {
         font-size: 14px;
         display: block;
         text-align: center;
         white-space: normal;
         text-wrap: balance;
         line-height: 1.2;
-        min-height: 34px;
-        max-width: 145px;
+        min-height: 30px;
+        max-width: 160px;
         margin: 0 auto;
+    }
+
+    .nav-dropdown details {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-submenu {
+        position: static;
+        transform: none;
+        min-width: 0;
+        width: 100%;
+        margin-top: 8px;
+        padding: 10px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        display: none;
+    }
+
+    .nav-dropdown details[open] .nav-submenu {
+        display: grid;
+    }
+
+    .nav-submenu a {
+        white-space: normal;
     }
 
     h1 {
         font-size: 28px;
     }
 
-    .gallery-two-col,
     .gallery {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -865,6 +962,15 @@ body.lightbox-open {
         grid-template-columns: 1fr;
         gap: 30px;
         align-items: center;
+    }
+
+    .home-hero-section {
+        margin-top: 25px;
+        padding: 30px 20px;
+    }
+
+    .home-hero-subtitle {
+        font-size: 16px;
     }
 
     .about-image {
@@ -939,23 +1045,25 @@ body.lightbox-open {
         height: 50px;
     }
 
-    .nav ul {
+    .nav > ul {
         width: min(100%, 430px);
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 10px;
         row-gap: 8px;
         align-items: center;
     }
 
-    .nav a {
+    .nav a,
+    .nav-dropdown summary {
         font-size: 13px;
         display: block;
         text-align: center;
         white-space: normal;
         text-wrap: balance;
         line-height: 1.2;
-        min-height: 32px;
+        min-height: 30px;
         max-width: 120px;
         margin: 0 auto;
         padding-bottom: 3px;
@@ -971,13 +1079,24 @@ body.lightbox-open {
         margin-bottom: 25px;
     }
 
-    .intro {
-        font-size: 16px;
-    }
-
     .about-text h2 {
         font-size: 24px;
         margin-bottom: 20px;
+    }
+
+    .home-hero-section {
+        margin-top: 15px;
+        padding: 24px 14px;
+    }
+
+    .home-hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 22px;
+    }
+
+    .home-hero-cta {
+        width: 100%;
+        max-width: 260px;
     }
 
     .about-image {

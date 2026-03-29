@@ -147,15 +147,6 @@ h1::after {
     box-shadow: 0 0 8px rgba(138, 63, 252, 0.5);
 }
 
-/* INTRO SECTION */
-.intro {
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--text-main);
-}
-
 .section-description {
     text-align: center;
     margin-bottom: 40px;
@@ -169,13 +160,6 @@ h1::after {
 }
 
 /* GALLERIES */
-.gallery-two-col {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
 .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -855,7 +839,6 @@ body.lightbox-open {
         font-size: 28px;
     }
 
-    .gallery-two-col,
     .gallery {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -969,10 +952,6 @@ body.lightbox-open {
     h1 {
         font-size: 24px;
         margin-bottom: 25px;
-    }
-
-    .intro {
-        font-size: 16px;
     }
 
     .about-text h2 {

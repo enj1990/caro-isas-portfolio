@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
     --bg-main: #101014;
@@ -28,7 +28,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-bottom: max(calc(var(--footer-space) + 24px), 320px);
+    padding-bottom: calc(var(--footer-space) + 24px);
 }
 
 /* HEADER */
@@ -88,27 +88,37 @@ body {
     object-fit: contain;
 }
 
+.nav {
+    width: 100%;
+}
+
 .nav ul {
     list-style: none;
     display: flex;
-    gap: 30px;
-    justify-content: center;
+    width: 100%;
+    gap: 18px;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .nav li {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
     min-width: 0;
 }
 
 .nav a {
     text-decoration: none;
     color: var(--text-main);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
     font-weight: 500;
     transition: color 0.3s ease;
     border-bottom: 2px solid transparent;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
+    line-height: 1.15;
+    display: inline-block;
 }
 
 .nav a:hover {
@@ -229,7 +239,7 @@ h1::after {
     font-weight: 600;
     color: var(--text-main);
     font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .form-group input,
@@ -262,7 +272,7 @@ h1::after {
     padding: 12px;
     background-color: var(--accent);
     color: var(--text-main);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -288,7 +298,7 @@ h1::after {
     border-radius: 8px;
     background: linear-gradient(135deg, rgba(90, 44, 160, 0.28), rgba(24, 24, 32, 0.95));
     color: #f6f1ff;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     line-height: 1.35;
 }
@@ -369,14 +379,14 @@ h1::after {
 
 .camera-send-text {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 15px;
     color: #f3eefc;
 }
 
 .camera-send-check {
     margin: 10px 0 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     color: #d2ffd8;
     opacity: 0;
@@ -492,7 +502,7 @@ h1::after {
 
 .footer-copy {
     grid-area: copy;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: var(--text-main);
     opacity: 0.9;
@@ -591,7 +601,7 @@ h1::after {
     bottom: 10px;
     z-index: 2;
     padding: 4px 8px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -662,7 +672,7 @@ h1::after {
     color: var(--title);
     margin-bottom: 5px;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif;
 }
 
 .footer-spacer {
@@ -752,7 +762,7 @@ h1::after {
     border: 1px solid rgba(138, 63, 252, 0.55);
     background: rgba(16, 16, 20, 0.82);
     color: var(--text-main);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
@@ -815,24 +825,25 @@ body.lightbox-open {
     }
 
     .nav ul {
-        width: min(100%, 760px);
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 14px;
+        column-gap: 12px;
         row-gap: 10px;
         align-items: center;
+        justify-items: center;
     }
 
     .nav a {
-        font-size: 14px;
-        display: block;
+        font-size: 15px;
+        display: inline-block;
         text-align: center;
         white-space: normal;
         text-wrap: balance;
         line-height: 1.2;
-        min-height: 34px;
         max-width: 145px;
         margin: 0 auto;
+        padding-bottom: 2px;
     }
 
     h1 {
@@ -923,25 +934,25 @@ body.lightbox-open {
     }
 
     .nav ul {
-        width: min(100%, 430px);
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         column-gap: 8px;
         row-gap: 8px;
         align-items: center;
+        justify-items: center;
     }
 
     .nav a {
-        font-size: 13px;
-        display: block;
+        font-size: 14px;
+        display: inline-block;
         text-align: center;
         white-space: normal;
         text-wrap: balance;
         line-height: 1.2;
-        min-height: 32px;
         max-width: 120px;
         margin: 0 auto;
-        padding-bottom: 3px;
+        padding-bottom: 2px;
     }
 
     main {

@@ -42,17 +42,15 @@
                 </div>
                 <div class="about-text">
                     <h2>Sobre mí</h2>
-                    <p>Nací en Córdoba, un 16 de enero del '92, y desde muy temprano entendí que la vida nos habla en formas que a veces tardamos en descifrar. Cuando terminé la secundaria, la gran pregunta de mi padre —"¿Qué vas a estudiar ahora?"— quedó flotando como un disparador suave pero certero. No tenía la respuesta, pero sí una certeza silenciosa: algo dentro mío buscaba un lenguaje propio.</p>
+                    <p>Trabajo desde la dirección estética y la observación. La fotografía, para mí, no es solo capturar un momento, sino construir una imagen que comunique con claridad.</p>
 
-                    <p>Con el tiempo descubrí que ese lenguaje ya convivía conmigo. Estaba en mi computadora, en los cajones, en las paredes de mi habitación… imágenes por todas partes, como pequeñas pistas de un camino que se abría solo. Fue entonces cuando entendí que la fotografía no era solo un interés: era el lugar donde quería quedarme.</p>
+                    <p>Me interesa lo que pasa entre lo visible y lo que se percibe. Cómo una persona se muestra, pero también cómo es leída por otros. Ahí es donde intervengo: ordenando, guiando y tomando decisiones visuales conscientes.</p>
 
-                    <p>Estudié en La Metro, Escuela de Diseño y Comunicación Audiovisual, y allí encontré no solo una formación, sino una forma de mirar, observar y contemplar que me diferenciaba. Desde entonces trabajo de manera independiente, guiada por una sensibilidad que me llevó, casi sin darme cuenta, hacia la fotografía naturalista. Me atrae ese instante en que lo humano y lo inanimado comparten un mismo pulso; ese destello de autenticidad que a veces se esconde, pero nunca desaparece.</p>
+                    <p>Muchas personas llegan sin saber cómo mostrarse o sintiendo que su imagen no representa lo que hacen. Mi trabajo es traducir eso en una imagen coherente, auténtica y profesional.</p>
 
-                    <p>Tuve la oportunidad de participar en exposiciones como Expo Muestro I y II y en la FA Feria de Artistas Córdoba 2015, experiencias que me enseñaron a soltar mis obras al mundo, a dejar que respiren en otras miradas.</p>
+                    <p>Cada sesión tiene intención. Desde la luz hasta el gesto, todo está pensado. No busco solo que una foto se vea bien, sino que funcione como una herramienta de comunicación.</p>
 
-                    <p>Con los años, mi camino se expandió hacia la fotografía publicitaria y de producto, trabajando para marcas como El Centro del Peinador, Mawas Indumentaria Masculina y Rouse Arey, entre otras. También he registrado eventos, producciones artísticas y retratos para modelos y actores, siempre buscando ese hilo invisible que une a cada persona con su esencia.</p>
-
-                    <p>Hoy, después de años detrás de la cámara, sigo encontrando la misma magia en cada toma: una mezcla de intuición, luz y sensibilidad que me recuerda por qué elegí —o tal vez por qué me eligió— este oficio, mi <strong>PASIÓN</strong>.</p>
+                    <p>Trabajo con personas que entienden que su imagen también habla por ellas.</p>
                 </div>
             </div>
         </section>
@@ -119,11 +117,23 @@
         const testimonials = document.querySelectorAll('.testimonial');
         const totalTestimonials = testimonials.length;
         const footer = document.querySelector('.footer');
+        const aboutText = document.querySelector('.about-text');
+        const aboutImage = document.querySelector('.about-image');
 
         function updateFooterSpace() {
             if (!footer) return;
             const footerHeight = Math.ceil(footer.getBoundingClientRect().height);
             document.documentElement.style.setProperty('--footer-space', `${footerHeight}px`);
+        }
+
+        function syncAboutImageHeight() {
+            if (!aboutText || !aboutImage) return;
+            if (window.innerWidth <= 768) {
+                aboutImage.style.height = '';
+                return;
+            }
+
+            aboutImage.style.height = `${Math.ceil(aboutText.getBoundingClientRect().height)}px`;
         }
 
         function showTestimonial(index) {
@@ -140,7 +150,12 @@
         // Inicializar
         showTestimonial(0);
         updateFooterSpace();
-        window.addEventListener('resize', updateFooterSpace);
+        syncAboutImageHeight();
+        window.addEventListener('resize', function () {
+            updateFooterSpace();
+            syncAboutImageHeight();
+        });
+        window.addEventListener('load', syncAboutImageHeight);
         setInterval(autoRotateTestimonials, 5000);
     </script>
 </body>

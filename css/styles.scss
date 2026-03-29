@@ -548,7 +548,9 @@ h1::after {
 
 .about-image {
     position: relative;
-    height: 100%;
+    align-self: stretch;
+    display: flex;
+    min-height: 0;
     overflow: hidden;
     border-radius: 8px;
     border: 1px solid rgba(138, 63, 252, 0.62);
@@ -576,6 +578,7 @@ h1::after {
 }
 
 .about-image img {
+    flex: 1 1 auto;
     position: relative;
     z-index: 0;
     width: 100%;
@@ -583,6 +586,11 @@ h1::after {
     display: block;
     object-fit: cover;
     object-position: center 22%;
+}
+
+.portfolio-cta {
+    margin: 42px auto 10px;
+    text-align: center;
 }
 
 .watermark-protected {
